@@ -1,0 +1,1022 @@
+# DOM 操作元素
+
+获取页面中元素的几种方式
+1.根据ID获取      getElementById
+2.根据标签名获取
+3.通过HTML5新增的方法获取
+4.特殊元素获取
+
+因为文档页面从上往下加载，所以先得有标签，要注意script的位置
+
+
+父元素一定要是单个元素对象
+
+
+！！！！！！！事件三要素！！！！！！！！！！
+事件组成：事件源（被触发对象）、事件类型（如何触发什么事件）、事件处理过程（通过一个函数赋值方式完成 ）
+var btn = document.getElementById('btn');    获取数据源
+   btn.onclick =()=>{                   根据事件类型写入事件处理过程（绑定事件）
+    alert('sada')
+   }
+
+
+this和function要一起有用   
+this指向事件函数的调用者
+        箭头函数不会被指向，会向外找使用者。
+		
+js里样式采取驼峰命名法。属性变字符串
+js改样式在行内，权重高。
+
+表单事件：获得焦点onfocus
+		  失去焦点onblur
+		  
+类名样式操作
+   事件.className = "新类名" 覆盖
+   事件.className = "原类名 新类名"
+
+
+排他思想：先排除其他人然后才设置自己样式。
+
+
+简单的交互可以使用css做
+
+
+
+自定义属性：保存数据、获取数据
+			H5规定所有自定义属性data-开头作为属性名并且赋值
+H5 element.dataset.属性名 or element.dataset["属性名"]
+   dataset是一个集合，里面放着所有以data-开头的自定义属性
+
+获取元素属性值：
+      element.属性； （获得内置属性）
+	  element.getAttribute('属性')；（自定义属性）
+修改属性值：
+	 element.属性 = 值；
+	 element.setAttribute('属性','值')； 
+移除属性值：
+element.removeAttribute('属性')；
+
+
+
+
+
+节点操作（利用层级关系获取元素）
+  节点（node）：★元素节点（一）、属性节点（二）、文本节点（三）
+节点类型（nodeType） 1 2 3 
+节点名称（nodeName）
+节点值（nodeValue）
+
+node.parentNode  会获得离node最近的父级节点（亲爸爸）如果找不到返回为空（null）
+node.childNodes  会获得所有子节点（同时也会包含空格、回车的文本节点） 找元素节点使用nodeType==1
+node.children（非标准但好用兼容）  会获得所有的子元素节点。
+
+node.firstChild 第一个子节点（文本包含）   children[0]
+    last
+	
+	
+node.firstElementChild 第一个子元素节点   children[node.children.length-1]
+     last
+
+node.nextSibling 兄弟节点   一个
+node.previousSibling
+
+node.nextElementSibling 兄弟元素节点 一个
+node.previousElementSibling
+
+
+
+
+创建节点
+document.createElement('tagName')
+添加节点
+node.appendChild(child) 添加子节点 后追加
+node.insertBefore(child,指定元素) 前追加
+
+删除节点
+node.removeChild(Child)  会返回删除的节点
+
+复制（克隆）节点
+node.cloneNode()     括号为空或false 浅拷贝 只复制标签不复制内容
+添加节点同上 
+
+阻止链接跳转：添加javascript：void(0)；或者**javascript:;**
+
+
+创建元素使用innerHTML加数组形式效率最高：先将需要的元素放入数组再将他们转换成字符串赋值给innHTML
+
+
+
+高级事件
+1.注册事件：传统方式（onclick）（唯一事件）、方法监听注册方式（addEventListener）
+   addEventListener(type,listener[,useCapture])————————同一个事件可以添加多个侦听器（事件处理过程）
+                   click      
+				   mouseover
+
+2.删除事件（解绑事件）：1传统element.onclick = null、element.removeEventListener(type,listener[,useCapture]); 
+   监听单独声明函数
+
+DOM事件流
+   事件传播过程：
+				1.捕获阶段（自html->body/head->...->目标）
+				2.当前目标
+				3.冒泡阶段（自目标到html）
+注意：1js代码只能执行捕获或者冒泡中的一个阶段
+      2onclick 只能得到冒泡阶段  
+addEventListener中的第三个参数useCapture如果是true则处于捕获阶段
+
+
+
+
+
+
+事件对象
+   element.onclick = function(event){}
+   1.event 就是一个事件对象，写到我们侦听函数的小括号里面当形参来看
+   2.事件对象只有有了事件才会存在，它是系统给我们自动创建，不需要我们传递参数
+   3.事件对象是我们事件的一系列相关数据的集合 跟事件相关
+      比如鼠标点击里面包含鼠标相关信息，鼠标坐标
+	      键盘事件里面包含键盘事件信息，用户按下的键
+   4.这个事件对象我们可以自己命名，比如event、evt、e
+e.target 返回触发事件的元素  绑定ul点li，target是li
+this指向绑定事件的对象 绑定ul点li，this就是ul
+ul
+  li
+
+e.target点击那个元素返回那个元素；this绑定了哪个元素返回那个元素
+
+
+阻止默认事件（跳转）：e.preventDefault()
+
+
+阻止冒泡：e.stopPropagation()  ——————————停止传播
+
+
+
+
+事件委托：
+    原理：不是每个子节点单独设置事件监听器，而是事件监听器设置在器父结点上，然后利用冒泡原理影响设置每个子节点
+只操作一次DOM，提高程序性能
+e.target获取的是当前点击的元素
+
+
+
+
+
+### 鼠标事件：                                     
+​	onclick
+​	onmouseover
+​	onmouseout
+​	onfocus
+​	onblur
+​	onmousemove
+​	onmouseup
+​	onmousedown
+​	contextmenu（显示上下文菜单，加个阻止行为可是实现无法复制功能）
+​	selectstart（开始选中）
+
+
+MouseEvent：
+     clientX clientY  （可视界面）  没有px单位注意
+	 pageX pageY （页面文档）
+	 screenX screenY
+	 
+
+### 键盘事件：
+
+​	onkeyup
+​	onkeydown
+​	onkeypress（按下但不识别功能键）
+执行顺序 ：down press up
+e.KeyCode 返回asc码
+e.key 兼容问题 
+keyup、keydown不区分大小写，keypress区分
+按下就触发，按下那一刻没有值
+
+
+
+
+
+
+
+# BOM
+
+浏览器对象模型：浏览器后退、前进、刷新、滚动等（把浏览器当成对象）
+
+​	window对象（是最大的对象）
+
+  window.innerWidth——————屏幕宽度
+
+window.addEventListener("load",function())     (页面全部加载完包括css 图片 flash等再执行内部代码)
+
+doucment.addEventListener("DOMContentLoaded",function())    (只需要当DOM加载完成不包括样式表，图片，flash)
+
+​			‘rezise’：窗口尺寸变化触发
+
+### 定时器
+
+window.setTimeout(函数，延时毫秒数)—————window可省略，定时结束之后在执行函数，只定时一次
+
+页面中可能有很多定时器，经常给定时器加标识符（名字）
+
+回调函数
+
+停止setTimeout定时器：clearTimeout(定时器名字)
+
+
+
+window.setInterval（函数，延时）————————每隔几秒去重复调用一个函数
+
+
+
+### this指向
+
+	+ 全局作用域下或者普通函数this指向全局对象window（定时器中this指向window）
+	+ 方法中this指向 函数调用者
+	+ 构造函数中this指向所创建的new后的对象
+
+
+
+### JS执行机制
+
+ ##### 同步与异步
+
+异步：等待时间过长执行下一步，任务队列（消息队列）
+
+​				  ————回调函数：普通事件（click、resize），资源加载（load、error），定时器（setinterval、settimeout）
+
+同步任务：主线程执行栈
+
+##### 机制
+
+1. 先执行执行栈中的同步任务
+2. 异步任务（回调函数）放入任务队列中
+3. 一旦执行栈中所有同步任务执行完毕，系统会按次序读取任务队列中的异步任务，于是被读取的异步任务借宿等待状态，进入执行栈，开始执行 
+
+![image-20221024163341222](C:\Users\29557\AppData\Roaming\Typora\typora-user-images\image-20221024163341222.png)
+
+
+
+异步进程处理：处理异步事件是否放入任务队列中
+
+**事件循环（event loop）**
+
+![image-20221024164000159](C:\Users\29557\AppData\Roaming\Typora\typora-user-images\image-20221024164000159.png)
+
+
+
+### location对象
+
+	+ .href  获取或设置 整个url --   （可以跳转）
+	+ .host  返回主机（域名）
+	+ .port  返回端口号
+	+ .pathname  返回路径
+	+ .search  返回参数 --（包含了？）
+	+ .hash   返回片段
+
+- .assign()   跳转
+- .replace()   替换不能后退
+- .reload()   刷新（参数默认false 如果变true则强制刷新，重新从服务器读取数据）
+
+### navigator对象
+
+
+
+### history对象
+
+​		再已经进行过网页后，实现的前进后退功能
+
++ back()
++ forward()
++ go(参数) 参数=1，前进1个页面；参数为-1，后退1个页面
+
+
+
+# PC网页特效
+
+### 元素偏移量offset
+
+offset：动态的获得元素的位置（偏移）、大小等   （注意返回数值不带单位） 
+
+  ![image-20221024192400642](C:\Users\29557\AppData\Roaming\Typora\typora-user-images\image-20221024192400642.png)
+
+
+
+style 与 offset 获取元素样式区别：
+
+|           style           |          offset          |
+| :-----------------------: | :----------------------: |
+| 只能获取是行内样式的style |     能获取任意样式表     |
+|          有单位           |         没有单位         |
+|   不包含padding和border   |   包含padding和border    |
+|      可读写，可赋值       | 只读，只能获取，不可赋值 |
+|        改值用style        |      只获取用offset      |
+
+
+
+### 元素可视区client
+
+类似offset但是返回的数值是不包含边框
+
+
+
+### flexibleJS源码分析
+
+#### 立即执行函数
+
+不需要调用，立马能够自己执行的函数
+
+##### 写法
+
+​		(function(){})()  //第二个括号可以看作调用
+
+​		或者 (function(){}());
+
+第一需要;隔开
+
+最大作用就是独立创建了一个作用域，里面所有的变量都是局部变量，不会有命名冲突
+
+
+
+#### load事件（加载页面）：
+
+window.addEventListener("load",function(){})
+
+跳转不同页面，显示不同html文字大小
+
++ a超链接
++ F5或刷新
++ 前进或后退
+
+火狐会缓存网页，后退不会触发load事件
+
+使用pageshow事件可以解决这一问题
+
+
+
+### pageshow事件
+
+window.pageshow
+
+其中persisted判断是否是缓存页面中触发的pageshow事件，是true 否false
+
+
+
+### scroll系列
+
+不包含边框
+
++ **element.scrollTop**   滚动后被卷进去的高度
++ **element.scrollLeft**
++ element.scrollWidth
++ element.scrollHeight
+
+与client区别在于，scroll是会延展，被内容拉长
+
+![image-20221025152959413](C:\Users\29557\AppData\Roaming\Typora\typora-user-images\image-20221025152959413.png)
+
+**scroll 滚动事件**：当我们的滚动条发生变化触发的事件
+
+### 页面卷动
+
+window.pageYOffset  页面被卷进去的头部
+
+window.pageXOffset  页面被卷进去的左侧
+
+
+
+### 总结
+
+![](C:\Users\29557\AppData\Roaming\Typora\typora-user-images\image-20221025162543784.png)
+
+### mouseover 和 mouseenter
+
+mouseover 冒泡，子到父
+
+mouseenter 不会冒泡，只会经过自身盒子触发
+
+mouseleave——————mouseenter
+
+mouseout——————mouseover
+
+
+
+### 动画
+
+定时器
+
+停止动画本质是停止定时器
+
+##### 动画函数封装（obj对象需要定位）
+
+```js
+function animate(obj, target, callback) {
+    //防止定时器不唯一，先删再加
+    clearInterval(obj.timer);
+    //直接给对象添加属性，减少了定时器开辟空间内存，命名直接变成专属定时器
+    obj.timer = setInterval(function () {
+        //设置步长,正的往大取，负的往小取
+        let step = (target - obj.offsetLeft) / 10;
+        step = step > 0 ? Math.ceil(step) : Math.floor(step);
+		
+        //等于好，正负都可以判断
+        if (obj.offsetLeft == target) {
+            //停止动画
+            clearInterval(obj.timer);
+            //调用回调函数
+            /* if (callback) {
+                callback();
+            } */
+            // 短路运算
+            callback && callback();
+        }
+        obj.style.left = obj.offsetLeft + step + 'px';
+    }, 30)
+}
+```
+
+**直接给对象添加定时器**
+
+会多开，因此需要定时器唯一(先删再加)
+
+##### 缓动动画
+
+​		步长公式：Math.ceil(（现在位置-目标位置）/10)
+
+每次现在位置都会变
+
+##### 回调函数（callback）
+
+定时器结束（动画结束）才执行回调函数
+
+节流阀：利用回调函数，添加一个变量控制，锁住函数和解锁函数。
+
+if （flag）{flag = false；do something}  关闭水龙头
+
+动画执行完毕后利用回调函数打开水龙头
+
+
+
+### 带动画的返回顶部
+
+window.scroll(x,y);  （x,y不加单位）
+
+
+
+
+
+
+
+
+
+## 案例：
+
+### 1.切换背景
+
+​    for (var i = 0; i < pic.length; i++) {
+​      pic[i].onmouseover = function () {
+​        console.log(this.src);
+​        bk.style.backgroundImage = "url(" + this.src + ")";
+​      }
+​    }
+
+### 2.鼠标浮动行变色
+
+​    var lines = document.querySelector("tbody").querySelectorAll("tr");
+​    for (var i = 0; i < lines.length; i++) {
+​      lines[i].onmouseover = function () {
+​        this.style.backgroundColor = "skyblue";
+​      }
+​      lines[i].onmouseout = function () {
+​        this.style.backgroundColor = "";
+​      }
+​    }
+
+### 3.一键全选
+
+​    var sele = document.querySelector("#all");
+​    var all_sele = document.querySelector(".tab2").querySelectorAll("input");
+​    sele.onclick = function () {
+​      for (var i = 0; i < all_sele.length; i++) {
+​        all_sele[i].checked = this.checked;
+​      }
+​    }
+   //下边多选影响全选
+​    for (var i = 0; i < all_sele.length; i++) {
+​      all_sele[i].onclick = function () {
+​        var flag = true;
+​        for (var i = 0; i < all_sele.length; i++) {
+​          if (!all_sele[i].checked) {
+​            flag = false;
+​			break；
+​          }
+​        }
+​        sele.checked = flag;
+​      }
+​    }
+​	
+​	
+​	
+
+### 4.tab制作（为确定点击的索引位置可以设置自定义属性来获取位置索引） 内容是一个块，内容多
+var change = document.querySelector("#tabs").querySelectorAll("li");
+var show = document.querySelector(".content").querySelectorAll(".item");
+for (var i = 0; i < change.length; i++) {
+    change[i].setAttribute("indexid", i);
+    change[i].onclick = function () {
+        for (var i = 0; i < change.length; i++) {
+            change[i].className = "";
+        }
+        this.className = "clicked";
+        for (var i = 0; i < show.length; i++) {
+            show[i].style.display = "none";
+        }
+        show[this.getAttribute("indexid")].style.display = "block";
+    }
+}
+
+
+### 5.下拉菜单    滑到大菜单li上，li的二号子元素ul显示
+var fra = document.querySelector(".alllan").children; //所有的大li
+for (var i = 0; i < fra.length; i++) {
+    fra[i].onmouseover = function () {
+        this.children[1].style.display = "block";
+    }
+    fra[i].onmouseout = function () {
+        this.children[1].style.display = "none";
+    }
+}
+
+
+### 6.发布信息
+var review = document.querySelector(".submi");
+review.children[1].onclick = function () {
+    var pras = document.createElement('li');
+    if (review.children[0].value == '') {
+        alert('您没有输入内容');
+        return false;
+    }
+    else {
+        pras.innerHTML = review.children[0].value;
+        review.children[2].insertBefore(pras, review.children[2].children[0]);
+        review.children[0].value = '';
+    }
+}
+
+
+
+### 7 动态添加表格
+//1准备学生数据
+var data = [{
+    name: '撒旦',
+    subject: 'JavaScript',
+    score: 100
+}, {
+    name: '恶魔',
+    subject: 'JavaScript',
+    score: 90
+}, {
+    name: '士大夫',
+    subject: 'JavaScript',
+    score: 60
+}];
+//2动态放入数据
+var add = document.querySelector(".dynamic").children[1];
+for (var i = 0; i < data.length; i++) {
+    var line = document.createElement('tr');
+    for (var k in data[i]) {
+        var eleme = document.createElement('td');
+        eleme.innerHTML = data[i][k];
+        line.appendChild(eleme);
+    }
+    //3创建有删除的单元格
+    var as = document.createElement('td');
+    as.innerHTML = "<a href='javascript:;'>删除</a>";
+    line.appendChild(as);
+    add.appendChild(line);
+}
+//4删除表格功能
+var delet = add.querySelectorAll('a');
+for (var i = 0; i < delet.length; i++) {
+    delet[i].onclick = function () {
+        add.removeChild(this.parentNode.parentNode);
+    }
+}
+
+
+
+
+### 8 盒子放大显示及隐藏
+	    var input = document.querySelector(".check");
+	    var inbox = input.children[1];
+	    inbox.addEventListener("keyup", function () {
+	        if (this.value === '') {
+	            input.children[0].style.display = "none";
+	        }
+	        else {
+	            input.children[0].style.display = "block";
+	            input.children[0].children[0].value = this.value;
+	        }
+	    })
+	    inbox.addEventListener('blur', function () {
+	        input.children[0].style.display = "none";
+	    })
+	    inbox.addEventListener('focus', function () {
+	        if (this.value !== '') {
+	            input.children[0].style.display = "block";
+	        }
+	    })
+
+
+
+### 9 定时器动态显示
+
+<div>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <script>
+        const time = document.querySelector("div");
+        const hour = time.children[0];
+        const min = time.children[1];
+        const sec = time.children[2];
+    
+        const inputtime = +new Date("2022-10-24 17:00:00");
+        countdown(); //第一次调用防止刷新有空白
+        setInterval(countdown, 1000);
+    
+        function add_zero(num) {
+            num = num < 10 ? '0' + num : num;
+            return num;
+        }
+        function countdown() {
+            var nowtime = +new Date();
+            var times = (inputtime - nowtime) / 1000;
+            var miao = add_zero(parseInt(times % 60));
+            var fen = add_zero(parseInt(times / 60 % 60));
+            var shi = add_zero(parseInt(times / 60 / 60 % 24));
+            hour.innerHTML = shi;
+            min.innerHTML = fen;
+            sec.innerHTML = miao;
+        }
+    </script>
+
+
+
+### 10 短信验证码
+
+	const send = document.querySelector('.send');
+	let time = 5;
+	send.children[1].addEventListener('click', function () {
+	    if (!send.children[0].value) {
+	        alert('信息不能为空')
+	    }
+	    else {
+	        this.disabled = true;
+	        let time_y = setInterval(function () {
+	            if (time > 0) {
+	                send.children[1].innerHTML = `${time}秒后重试`;
+	                --time;
+	            }
+	            else {
+	                send.children[1].disabled = false;
+	                send.children[1].innerHTML = '发生';
+	                time = 5;
+	                clearInterval(time_y);
+	            }
+	
+	        }, 1000)
+	    }
+	})
+
+
+
+
+### 11 页面自动跳转
+<div class="a2"></div>
+	<script>
+	    const nato = document.querySelector('.a2');
+	    let t = 5;
+	    let tim = setInterval(function () {
+	        if (t > 0) {
+	            nato.innerHTML = `将在${t}秒后跳转`;
+	            t--;
+	        }
+	        else {
+	            clearInterval(tim);
+	            t = 5;
+	            location.href = 'https://baike.baidu.com/item/%E5%B9%B2%E9%A5%AD/56966415'
+	        }
+	    }, 1000)
+	
+	</script>
+
+
+
+
+
+### 12 获取表单数据
+    <script>
+        const login_info = new Map();
+        const get = location.search.substr(1).split('=')
+        for (let i = 0; i < get.length; i = i + 2) {
+            login_info.set(get[i], get[i + 1]);
+        }
+        console.log(login_info);
+        const i = document.querySelector('div');
+        i.innerHTML = login_info.get('uname');
+    </script>
+
+
+
+### 13滑动放大区域
+
+```js
+//还是要注意比例缩放 
+
+<div class="box">
+        <div class="mask"></div>
+        <div class="big"></div>
+    </div>
+
+    <script>
+        const box = document.querySelector('.box');
+        const show = box.children[0];
+        const big = document.querySelector('.big');
+        function jug(x, limit) {
+            if (x > limit)
+                return limit;
+            else if (x < 0)
+                return 0;
+            else
+                return x;
+        }
+        box.addEventListener('mousemove', function (e) {
+            let w = e.pageX - this.offsetLeft;
+            let h = e.pageY - this.offsetTop;
+
+            let box_width = box.offsetWidth;
+            let box_height = box.offsetHeight;
+
+            let mask_width = show.offsetWidth;
+            let mask_height = show.offsetHeight;
+
+            let maskX = w - mask_width / 2;
+            let maskY = h - mask_width / 2;
+            // 大图片移动距离 = 遮挡层移动距离 * 大图片最大移动距离 / 遮挡层最大移动距离
+            // let timesX = maskX * big.offsetWidth / (box_width - mask_width);
+            // let timesY = maskY * big.offsetHeight / (box_height - mask_height);
+
+            show.style.display = 'block';
+            big.style.display = 'block';
+
+            show.style.left = `${jug(maskX, box_width - mask_width)}px`;
+            show.style.top = `${jug(maskY, box_height - mask_width)}px`;
+			// 6是原图与显示图间的倍数关系
+            big.style.backgroundPositionX = `-${jug(maskX, box_width - mask_width) * 6}px`;
+            big.style.backgroundPositionY = `-${jug(maskY, box_height - mask_width) * 6}px`;
+        })
+        box.addEventListener('mouseout', function () {
+            show.style.display = 'none';
+            big.style.display = "none";
+        })
+    </script>
+```
+
+ 
+
+### 14 模态框鼠标移动
+
+```js
+<div class="bo"></div>
+<script>
+    const bo = document.querySelector('.bo');
+    let mouse_left;
+    let mouse_top;
+    // （1）鼠标点击获取盒子位置
+    bo.addEventListener('mousedown', function (e) {
+        mouse_left = e.pageX - bo.offsetLeft;
+        mouse_top = e.pageY - bo.offsetTop;
+        // （2）鼠标移动盒子移动（任何位置都能移动）
+        function move(e) {
+            bo.style.top = `${e.pageY - mouse_top}px`;
+            bo.style.left = `${e.pageX - mouse_left}px`;
+        }
+        document.addEventListener('mousemove', move)
+        // （3）鼠标弹起，移动解除（任何位置都能弹起）
+        document.addEventListener('mouseup', function () {
+            document.removeEventListener('mousemove', move);
+        })
+    })
+   </script>
+```
+
+
+
+### 15侧边栏粘性隐藏显示
+```js
+ <div class="slider-bar">
+    <span class="goback">返回顶部</span>
+</div>
+<div class="header w">头部区域</div>
+<div class="banner w">banner区域</div>
+<div class="main w">主体部分</div>
+<script>
+    const sliderbar = document.querySelector('.slider-bar');
+    const banner = document.querySelector('.banner');
+    const main = document.querySelector('.main');
+    const goback = document.querySelector('.goback');
+    // 侧边栏到banner时固定，这段过程的高度
+    const bannertop = banner.offsetTop;
+    // 固定定位是侧边栏高度应该指定的数值
+
+    const maintop = main.offsetTop;
+
+    const slider_banner = sliderbar.offsetTop - bannertop;
+    document.addEventListener('scroll', function () {
+        if (window.pageYOffset >= bannertop) {
+            sliderbar.style.position = 'fixed';
+            sliderbar.style.top = `${slider_banner}px`;
+            if (window.pageYOffset >= maintop) {
+                goback.style.display = 'block';
+            }
+            else {
+                goback.style.display = 'none';
+            }
+        }
+        else {
+            sliderbar.style.position = 'absolute';
+            sliderbar.style.top = '350px';
+        }
+
+    })
+```
+
+
+
+
+
+### 16 动画函数封装
+
+```js
+function animate(obj, target, callback) {
+//防止定时器不唯一，先删再加
+clearInterval(obj.timer);
+//直接给对象添加属性，减少了定时器开辟空间内存，命名直接变成专属定时器
+obj.timer = setInterval(function () {
+    //设置步长,正的往大取，负的往小取
+    let step = (target - obj.offsetLeft) / 10;
+    step = step > 0 ? Math.ceil(step) : Math.floor(step);
+	
+    //等于好，正负都可以判断
+    if (obj.offsetLeft == target) {
+        //停止动画
+        clearInterval(obj.timer);
+        //调用回调函数
+        /* if (callback) {
+            callback();
+        } */
+        // 短路运算
+        callback && callback();
+    }
+    obj.style.left = obj.offsetLeft + step + 'px';
+}, 30)
+}
+```
+
+
+
+
+### 17 无缝切换轮播图
+
+```js
+<div class="box">
+
+    <a href="javascript:;">&lt;</a>
+    <a href="javascript:;">></a>
+
+    <ul>
+        <li><a href="#"><img src="images/3.jpg" alt=""></a></li>
+        <li><a href="#"><img src="images/4.jpg" alt=""></a></li>
+        <li><a href="#"><img src="images/5.jpg" alt=""></a></li>
+    </ul>
+
+    <ol class="circle">
+    </ol>
+</div>
+<script>
+       // 轮播图
+        const box = document.querySelector('.box');
+        const left = box.children[0];
+        const right = box.children[1];
+        const pics = box.children[2];
+        const pic = pics.querySelector('img');
+        // 图片宽度，决定了移动像素
+        const w = pic.clientWidth;
+        let pic_child = pics.children;
+        // 图片的数量
+        const pic_num = pic_child.length;
+        const circle = box.children[3];
+        // cout为图片的索引位置
+        let cont = 0;
+        // 动态创建圆点导航
+        for (let i = 0; i < pic_num; i++) {
+            let l = document.createElement('li');
+            l.dataset['no'] = i;
+            circle.appendChild(l);
+        }
+        for (let i = 0; i < pic_num; i++) {
+            circle.children[0].className = 'current';
+            circle.children[i].addEventListener('click', function () {
+                for (let i = 0; i < pic_num; i++) {
+                    circle.children[i].className = '';
+                }
+                this.className = 'current';
+                cont = this.getAttribute('data-no');
+                animate(pics, -this.getAttribute('data-no') * w);
+            })
+        }
+
+        // 克隆第一张图片做到无缝滚动
+        const last = pics.children[0].cloneNode("true");
+        pics.appendChild(last);
+        pic_child = pics.children;
+
+
+        // 左右箭头显示隐藏，鼠标移到图上停止定时器，移开开启定时器
+        box.addEventListener('mouseenter', function () {
+            left.style.display = 'block';
+            right.style.display = 'block';
+            clearInterval(timer);
+            // 定时器清除了，变量清空
+            timer = null;
+        })
+        box.addEventListener('mouseleave', () => {
+            left.style.display = 'none';
+            right.style.display = 'none';
+            timer = setInterval(function () {
+                // 定时器直接调用右箭头点击
+                right.click();
+            }, 2000);
+        })
+
+        // flag 节流阀
+        let flag = true;
+
+        // 左右箭头的点击使用
+        right.addEventListener('click', function () {
+            if (flag) {
+                flag = false;
+                for (let i = 0; i < pic_num; i++) {
+                    circle.children[i].className = '';
+                }
+                // 如果走到最后复制一张照片，此时，我们的ul要快速复原left为0
+                if (cont >= pic_num) {
+                    pics.style.left = 0;
+                    cont = 0;
+                }
+                // cont放这里是图片先显示最后再回到开始
+                cont++;
+                // 判断圆点位置，最后需要到开始位置，圆点和图片绑定
+                circleChange();
+            }
+        });
+        left.addEventListener('click', function () {
+            if (flag) {
+                for (let i = 0; i < pic_num; i++) {
+                    circle.children[i].className = '';
+                }
+                // 如果第一张点击，此时，我们的ul要快速到最后克隆的位置
+                if (cont <= 0) {
+                    cont = pic_num;
+                    pics.style.left = `-${cont * w}px`;
+                }
+                // 左减右加
+                cont--;
+                // 判断圆点位置，最后需要到开始位置，圆点和图片绑定
+                circleChange();
+            }
+        })
+        // 圆点定位函数
+        function circleChange() {
+            // 判断圆点位置，最后需要到开始位置，圆点和图片绑定
+            if (cont >= pic_num) {
+                circle.children[0].className = 'current';
+            }
+            else
+                circle.children[cont].className = 'current';
+            //动画回调函数控制节流阀flag为true，使得图片显示完成才能下次移动
+            animate(pics, -w * (cont), function () {
+                flag = true;
+            });
+        }
+
+        let timer = setInterval(function () {
+            // 定时器直接调用右箭头点击
+            right.click();
+        }, 2000);
+
+```
+
+
+

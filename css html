@@ -1,0 +1,707 @@
+THML：超文本标记语言
+单标签： 
+     <br /> 换行，不会像<p>一样有大空隙
+	 <img src="">
+	 
+	 
+文本格式化标签：加粗 strong、倾斜 em、删除线 del、下划线 ins
+
+
+盒子 <div> <span>
+图像
+
+
+
+链接
+<a> 链接标签 target: _blank (新窗口打开) 、 _self(当前窗口打开)
+   href = “#”  表示空连接
+   下载链接：链接是文件 .exe 或者 zip等压缩包形式
+
+锚点链接：快速定位到此页面中的某一位置  要使用id来标记 使用#idname来跳转
+
+特殊字符：&nbsp;(空格)
+          &lt;(<)
+		  &gt;(>)
+		  
+
+
+
+表格
+表格主要用于显示数据。
+	<table>       //用于定义表格标签
+	 <tr>         //表格的行 (table row)
+	  <td>单元格内的文字</td>  //表格的单元格(table data)    ------<th></th> //表头单元格(table head)
+	  ...
+	 <tr>
+	 ...
+	<table>
+
+表格属性：
+	align    left center right 
+	border   1 or ""
+	cellpadding value           (边沿与内容距离)
+	cellspacing value           (单元格之间)
+	width    value or percent   表格宽度
+表格结构标签：
+	<thead> 头部区域
+	<tbody> 主体区域
+合并单元格：（三部曲：确定方式、找目标、删多余）
+	跨行合并：rowspan = "合并个数"   上
+	跨列合并：colspan = “合并个数”   左
+	
+	
+
+列表
+布局——————整齐、有序。                                                                                list-style: none ——————————————去列表前面的黑点 
+有序列表:
+	<ol>
+		<li></li>
+		...
+	<ol>
+
+无序列表(重点):
+	<ul>
+		<li></li>
+		<li></li>
+		<li></li>
+		...
+	</ul>
+	 
+
+自定义列表——————对于术语或名词的解释和描述
+	<dl>
+		<dt>名词1</dt>
+		<dd>名词1解释1</dd>
+		<dd>名词1解释2</dd>
+	</dl>
+
+
+
+
+
+表单：表单域、表单控件（表单元素）、提示信息
+	<form action="url地址" method="提交方式" name="表单域名称">
+	各种表单元素控件
+	</form>
+method:post、get
+
+表单控件：
+	input:type————————————text、password、radio（单选）、checkbox（多选）、submit（提交表单）、reset（重置）、button（搭配js使用）、file（上传文件）
+		  name 单选、多选一定要注意name
+		  value
+		  checked 是否默认勾选
+		  maxlength
+	label：用于绑定表单元素 for ==> id
+		<label for="">content</label>
+	select:下拉列表
+		<select>
+			<option>选项1</option>
+			<option>选项2</option>
+			<option>选项3</option>
+			...
+		</select>
+	textarea:输入文本内容多情况使用
+		<textarea></textarea>
+
+
+
+
+W3C：https://www.w3school.com.cn
+
+
+
+
+
+
+
+
+
+
+
+
+!!!!!!!!!!!CSS!!!!!!!!!!!  （层叠样式表）  ————————网页美容师
+主要使用于美化网页
+
+行内样式表（行内式）、内部样式表（嵌入式）、@@@@@外部样式表（链接式）@@@@（link标签引入）
+												<link rel="stylesheet" href="">
+标记语言
+选择器(选择标签)+声明
+style中
+
+共同元素可以写在一个选择器中，调用多类实现
+复合属性要按顺序  
+选择器：
+	基础选择器
+		标签、类（.类名）、id（#id名，唯一）、通配符（*   自动给所有元素改样式）
+	
+	复合选择器
+		后代选择器、子选择器、并集选择器、伪类选择器
+
+
+text-decoration  下划线
+text-indent: 首行缩进
+单位：em 当前文字 相对大小
+line-height 行高（上下间距+文本高度） 1.5（当前文字的1.5倍像素）
+垂直居中小技巧：line-height = height
+
+
+想让图片居中对齐就需要给它的父标签对齐属性
+
+
+
+emmet语法
+div*5 生成5个div
+包含关系div>p (div包含p)
+同级关系div+p
+.classname =><div class="calssname"></div>
+p.classname
+.classname$*5  1-5个div  $自增符号
+
+
+
+后代选择器 （会把后代所有是子级的标签全使用上样式）    ——————————————————————————————important
+父级 子级 （孙级） {
+  样式
+}
+
+
+
+子代选择器（只选择了子级元素）  ——————————————————————————————important
+父级>子级 {
+ 样式
+}
+
+
+并集选择器（选择多组标签，同时定义相同样式）（逗号分割）（一组，和）
+标签1，标签2 {
+  样式
+}
+
+
+伪类选择器（给链接添加特殊效果 或选第1个，第n个元素）
+：
+	链接伪类选择器：
+		a:link (选择未访问的链接————没有被点击的)
+		a:visited（选择已访问过的链接）
+		a：hover（选择被鼠标经过的链接）        可以找其他选择器发生事件
+		a:active（选择被鼠标按下的链接）
+	  注意事项：顺序LVHA(LOVE HATE)——:link、:visited、:hover、:active
+	            a链接单独指定样式
+	  实际开发是需要a的color 和鼠标经过:hover即可
+	  
+	focus伪类选择器（选取获得焦点的表单元素---只有在获取光标才显示，跟表单相关）:
+		input:focus
+
+
+
+
+CSS的元素显示模式
+1、块元素：                   ——————————————————————————————important——————————————————————————————
+		1）比较霸道，自己独占一行
+		2）高度、宽度、外边距以及内边距都可以控制
+		3）宽度默认是容器（父级宽度）的100%（只是宽度）
+		4）是一个容器及盒子，里面可以放行内或者块级元素
+		注意p标签等文字类块标签不能放其他块级元素
+
+2、行内元素：
+		1）相邻行内元素在一行上，一行可以显示多个
+		2）高、宽直接设置是无效的
+		3）默认宽度就是它本身内容的宽度
+		4）行内元素只能容纳文本或者其他行内元素
+		注意a标签里面可以放块级元素，但给a转换一下块级模式最安全
+
+3.行内块元素：<img />、<input />、<td>
+		1）和相邻行内元素（行内块）在一行上，但是他们之间会有空白缝隙。一行可以显示多个（行内元素特点）
+		2）默认宽度就是它本身内容的宽度（行内元素特点）
+		3）高度、行高、外边距以及内边距都可以控制（块级元素特点）
+
+CSS的元素显示模式转换          ——————————————————————————————important——————————————————————————————
+一个模式需要另外一种模式的特性
+转换为块元素：display:block           
+转换为行内元素：display：inline
+转换为行内块:display:inline-block
+display：none 隐藏元素————————————————————————————————————————————————important——————————————————————————————————————————
+			已经隐藏的元素无法hover
+visibili隐藏继续占有
+
+overflow溢出   visible、hidden、scroll、auto  定位时要慎用 
+
+
+
+
+背景
+背景颜色 background-color
+背景图片 background-image:none(默认) | url(url)
+背景平铺：background-repeat：repeat | no-repeat | repeat-x | repeat-y
+背景图片位置 background-position：x y;（用方位名词只写了一个位置另一个默认是center）
+背景图像固定（背景附着） background-attachment:scroll | fixed
+
+颜色 图片 平铺 滚动 位置
+
+背景半透明 
+backgroun：rgba（0，0，0，.3）
+
+
+——————————————————————————————————————————————————important————————————————————————————————————————————————————————important——————————————————————————————————————————————————————————important————————————————————————————————
+CSS三大特性：层叠性（覆盖）、继承性（子承父业————文字）、优先性（如果选择器相同则执行层叠性，选择器不同根据权重 继承或*<元素<类、伪类<id<行内style<！important重要的）a链接浏览器默认指定了一个样式
+权重：0 1 10 100 1000 ∞
+复合选择器会有权重叠加问题 （叠加不会进位） 0000 0001 0010 0100 1000 ∞
+为了优先级
+.nav .pink 比 .pink好
+
+
+
+
+
+——————————————————————————————————————————————————important————————————————————————————————————————————————————————important——————————————————————————————————————————————————————————important————————————————————————————————
+盒子模型（Box Model） ：边框（border）、外边距（margin）、内边距（padding）、实际内容（content）
+网页布局：1.分盒子 2.设盒子样式，摆位置 3.盒子内装内容
+
+边框（border）
+	border: border-width(px) || border-style(必须要有才能看到) || border-color
+	border- top bottom left right
+	表格：border-collapse合并相邻边框   表格上使用
+
+内边距padding
+	padding：山下左右  
+			上 右 下 左 顺时针 
+			上 右左 下
+	        上下 右左 
+
+盒子会变大要注意减去内边距。！！！！   padding
+若盒子本身没有指定width、height属性，padding不会撑开盒子
+
+
+外边距margin
+	margin：与padding一致 
+
+块级盒子居中：margin: 0 auto （必须要设置盒子width）
+行内元素或行内块元素居中：给父级增加text-align：center即可。
+
+
+
+
+外边距合并（取大值）：
+		bottom -10
+		·  -10
+		·  -10
+		top  -20
+
+嵌套块元素垂直外边距塌陷（父级与子级贴太近，使用了同一外边距框）
+	解决：1.父元素定义边框
+		  2.父元素定义内边距
+		  3.父元素添加overflow：hidden
+
+
+
+不同浏览器会有默认的元素样式
+   * {
+      margin： 0；                     ————————————————————————————————————————————————————————————————————————————————————————css第一句！！！！！！！！！！！！！！@@@@@@@@@@@@&&&&&&&&&&￥￥￥￥￥￥￥￥￥￥￥
+      padding： 0；
+      }
+
+
+行内元素照顾兼容性尽量只设计左右内外间距
+
+ps 标尺ctrl+r
+   空格变手可拖动
+
+   
+
+
+
+合理地方用合理标签   标题用h 文字用p
+padding和margin按实际情况使用
+zoomlt 软件
+
+
+border-radius：左上 右上 右下 左下
+             左对角 右对角
+圆框：border-radius： 50%；
+圆角矩形：border-radius： height的50%；
+
+
+
+
+
+
+
+
+
+盒子阴影
+box-shadow: h v blur spread color inset
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CSS布局：
+	1.普通流（标准流）
+	2.浮动：改变元素标签默认排列方式
+			多个块元素纵向排列找标准流，多个块元素横向排列找浮动——————————————————————————————————————————————————————————important
+	3.定位
+
+
+浮动：
+	用于创建浮动框，将其移动到一边，直到左边缘或右边缘触及包含快或另一个浮动框的边缘
+	下一个会浮动到上一个边上
+	float： 值 （none、left、right）
+   特性：
+	 1.脱离标准流的控制（浮），移动到指定位置（动）——————脱标
+	 2.浮动的盒子不再保留原先位置 ——————————浮起来位置空了会被其他块占据
+	 3.浮动后会具有行内块元素类似效果————————————行内元素给了浮动就不需要转换块就能给高度和宽度
+
+网页布局第一准则：先用标准流父元素排列上下位置，之后内部元素采取浮动排列左右位置
+
+
+
+
+浮动盒子只会影响盒子后面的标准流，不会影响前面的标准流。 标准流占据海陆空
+
+
+
+父盒子很多情况不给高度，父元素高度会检测标准流高度，一旦子元素浮动而父元素没有给高度父元素会没有高度 ，因此需要清除浮动。
+选择器 {clear： 属性值；}
+
+方法：
+	1.额外标签法（隔墙法） 在最后个浮动元素加个块级标签封锁 <div class="(有clear的方法)"></div>
+	2.父级添加overflow属性 overflow: hidden;
+	3.父级添加after伪元素 clearfix 
+			.clearfix::after{	
+			display: block;  /* 使其成为块级元素后*/
+			content: "";    /*为伪元素加入空内容，以便伪元素中不会有内容显示在页面中*/
+			height: 0;       /* 为使伪元素不影响页面布局，将伪元素高度设置为0*/
+			clear: both;     /* 清除浮动*/
+			}
+			.clearfix { *zoom:1; }  /*兼容IE6、IE7 */
+
+	4.父级添加双伪元素
+
+
+
+
+
+
+css属性书写顺序：
+	1布局定位
+	2自身属性
+	3文本属性
+	4其他属性
+
+先结构后代码
+
+导航栏用li+a做
+
+
+
+
+
+
+
+定位——————————让盒子自由自在移动
+	定位 = 定位模式 + 边偏移
+			position（static，relative，absolute，fixed） + （top，bottom，left，right）
+static 静态没有定位
+relative 相对，相对于原来位置 （不脱标） 典型应用是给绝对定位当爹。
+absolute 绝对，相对于祖先元素（脱标）
+		1 如果没有祖先，以浏览器为主，父级无定位，子级也以浏览器为主
+		2 如果祖先元素有定位（相对、绝对、固定定位），则以最近一级的有定位元素为参考点移动位置
+fixed 固定，在可视区域内 （不占有位置 脱标）
+	 固定版心位置：
+				1固定盒子左50%走到一半
+				2固定盒子margin-left：版心宽度一半距离
+sticky粘性定位：选择器{position： sticky；top：10px}
+			特点：1.以浏览器的可视窗口为参照点移动元素（固定定位特点）
+				  2.占有原先位置（相对定位特点）
+				  3.必须添加top、left、right、bottom其中一个才有效（当与方位有多少px就固定）
+
+子绝父相
+
+
+
+图片套个父盒子
+
+z-index 控制盒子的前后顺序（只有定位盒子才有这个属性）
+   选择器 {z-index：1；}  数值可以是正整数、负整数或0，默认auto，数值越大，盒子越靠上
+值相同，后来者居上
+
+绝对定位盒子居中：走50%在反方向走自己宽度一半
+负数才会往回走
+
+
+
+行内元素添加了绝对定位或固定定位，可以设置高度和宽度
+块元素添加了绝对定位或固定定位，不给宽高，默认大小就是内容大小
+
+浮动和绝对定位区别：
+	浮动元素只会压住下面标准流的盒子，不和压住下面标准流里的文字（图片）会挤出文字和图片————————来源于浮动最初产生目的是产生文字环绕效果。
+	绝对（固定定位），会压住下面标准流所有内容
+
+
+
+
+
+CSS高级技巧
+精灵图（sprites 雪碧图）：
+	  目的：为了有效的减少服务器接收和发送请求的次数，提高页面加载速度
+	  background-position(x,y)来实现图片区域选择 精确测量。
+	  初始位置在左上角
+	  左负上负
+ background：url(图片) x y;
+
+
+
+字体图标（iconfont）：展示是图标本质是字体
+		结构和样式简单的
+icomoon.io
+www.iconfont.cn
+	fonts文件夹放页面根目录下
+	复制小框
+	字体引用
+	selection.json追加
+
+
+
+
+CSS巧妙设计：：：：：：：：：：：：：：：：：：：：：
+
+
+三角：宽高为0的盒子加上边框
+
+
+cursor:鼠标样式（default、pointer、move、text、not-allowed）
+
+
+表单input点击后的轮廓 outline
+
+textarea阻止文本域拖拽：resize：none；
+
+vertical-align：baseline | top | middle | bottom  行内块和行内元素
+经常用于设置图片或者表单（行内块元素）和文字垂直对齐
+        （只针对行内元素或者行内块元素）
+
+图片底侧会有一个空白缝隙，原因是行内块元素和文字基线对齐。
+  解决方法：1.图片加个vertical-align属性值    （推荐）	
+			2.图片转换成块级元素
+
+
+溢出文字省略
+      三个条件： 1）先强制一行内显示文本：  white-space：nowrap；
+				 2）超出部分隐藏：   overflow：hidden；
+				 3）文字用省略号代替超出部分：   text-overflow：ellipsis；
+多行文本显示省略号（最好后台人员控制）：
+			overflow:hidden;
+			text-overflow：ellipsis；
+			display:-webkit-box;
+			-webkit-line-clamp: 3;     (第几行出现省略号)
+			-webkit-box-orient: vertical;
+
+margin负值做严丝合缝的边框，鼠标浮动到盒子时出现边框：1.可以把盒子变成相对定位压住其他盒子防止少边框
+													  2.如果都有定位可以使用z-index提高层级
+
+
+行内块元素巧妙运用：本身自带空隙，易居中
+
+
+三角强化：直角三角形只有上右边框且上>右 
+       border-color: transparent red transparent transparent;
+	   border-style:solid;
+	   border-width:100px 50px 0 0;
+
+
+
+
+
+
+
+
+
+HTML5新增语义化标签：
+     <header>:头部标签
+	 <nav>:导航标签
+	 <article>：内容标签
+	 <section>:定义文档某个区域
+	 <aside>:侧边栏标签
+	 <footer>:尾部标签
+
+多媒体标签：
+	音频<audio> MP3
+	视频<video> mp4、webm、ogg     autoplay=“autoplay”（谷歌需要加个muted=“muted”） controls loop poster
+	
+input标签 （验证要在form里面）：
+	email
+	number
+	tel
+	color
+	time
+	data
+	url
+	month
+	week
+	search
+	等
+表单属性：
+	required
+	placeholder            input::placeholder改样式
+	autofocus 自动聚焦
+	autocomplete （off/on）记录 要加上name属性同时成功提交
+	multiple 多选提交文件
+
+
+
+
+
+
+
+CSS3新特性：：：：：：：：：：：：：：：：
+新增选择器（属性、伪类权重都是10）：
+     []是属性选择器
+   属性选择器：    1.标签[属性]{}	     按属性选
+标签+属性=11	   2.标签[属性 = 值]{}   按属性值选   important！！！！！！！！！！！！！！！
+				   3.标签[属性^=值的开头]{}     按属性值开头选      div[class^=icon]{} 选择class是icon开头的div
+				   4.标签[属性$=值的结尾]{}     按属性值结尾选
+				   5.标签[属性*=值的一部分]{}   属性中有这个值的一部分就选上
+    
+
+结构伪类选择器（父级的第几个孩子）：
+   :first-child就是一个选择器，表示第一个元素   ul :first-child      ul里面的第一个元素
+   E:first-child表示选的元素是E类型。           ul li:first-child    ul里面的第一个li元素
+		1.E:first-child  第一个E元素
+		2.E:last-child   最后一个E元素
+		3.E:nth-child(n)  n可以是数字也可以是关键字（even偶数、odd奇数）也可以是公式     第几个E元素   （隔行变色）
+                                                                      公式：：nth-child(n){}    (n从0开始每次加1往后计算)  n/2n/2n+1/5n/n+5/-n+5/……
+		上面的先排序在找是否是指定的标签E															           
+		下面的先找好指定标签E在排序找												       
+		4.E:first-of-type
+		5.E:last-of-type
+		6:E:nth-of-type(n)
+
+伪元素选择器（利用css创建新标签元素）：————————————行内元素，文档树中找不到“伪”  （权重为1，必须有content属性）
+		1.::before   在元素内部前面插入内容
+		2.::after	 在元素内部后面插入内容
+结合字体图标
+伪元素是行内元素没有宽高。！！！！！！！！！！
+
+伪元素清除浮动：
+		.clearfix:after{
+			content='';
+			display="block";    <--------转换成块级元素
+			height=0;           <--------不要看见这个元素
+			clear:both;         <--------核心代码清除浮动
+			visibility:hidden;  <--------不要看见这个元素
+		
+		}
+clear：both是出现在浮动元素最底边位置
+
+双伪元素display不能是block，因为这样两个伪元素会换行，而是用display:table;(一行的块级元素)
+
+
+css3盒子模型：（box-sizing）
+    两种情况：
+	   1.box-sizing：content-box 盒子大小 width+padding+border
+	   2.box-sizing：border-box 盒子大小 width
+第二种不会让padding和border撑开盒子 
+
+
+
+
+css3滤镜filter：
+	模糊或颜色偏移
+filter：函数（）    blur(npx)模糊 值越大越模糊
+
+calc()函数 + - * /
+    例如：width:calc(100%-80px);
+
+
+
+
+
+CSS3过渡
+
+## CSS3 过渡 ##
+
+transtition: 要过渡的属性 花费时间 运动曲线 何时开始 ， ---；
+
+##### 属性： 
+
+	想要变换的css属性，如果都要变写个all即可 all
+
+##### 花费时间：
+
+	单位秒 s
+
+##### 运动曲线：
+
+	默认ease 默认
+
+##### 何时开始：
+
+	单位秒 s 默认
+
+谁做过渡（谁变）给谁加，可以搭配hover实现效果
+
+
+
+
+
+### transform
+
+translate
+
+rotate(?deg)
+
+transform-origin: x y
+
+scale(倍数,倍数)--------------------------scale(数):等比例缩放    不会影响其他盒子布局
+
+transform: translate() rotate() scale() 
+
+
+
+
+
+### 动画 animation
+
++ 定义动画
+
++ 在使用(调用)动画--------animation-name:动画名称; + animation-duration:持续时间;
+
+  keyframes关键帧
+
+  百分比:时间划分
+
+@keyframes 动画名称{
+
+​			0%{      //开始
+
+​		width:100px;
+
+}
+
+100%{       //结束
+
+​		width:200px;
+
+}
+
+}
+
+from to 等价0% 100%
+
+animation: name duration infinite(无限循环) steps(几步);
+
+​										 	forwards(停在最后位置)    linear
+
+animation-delay:延时时间
+
+元素可添加多个动画,用逗号分隔

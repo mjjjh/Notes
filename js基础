@@ -1,0 +1,203 @@
+alert(msg) 弹出警示框
+console.log(msg) 打印输出信息
+prompt(info) 弹出输入框，用以输入
+
+var 变量声明
+isNan() 判断非数字，并返回值：false true
+typeof 检查数据类型
+
+toString() 变量.函数() 、String()强制转换、加号拼接字符串（隐式转换）   
+parseInt(var) 字符转数字 取整数 会去掉后面字符px。
+parseFloat(var) 字符转浮点数 会去掉后面字符px。
+Number()
+隐式转换（运算-、*、/）。
+
+
+== 值相等 默认转换数据类型
+=== 全等 值与数据类型都一样
+!==
+
+短路运算符
+123 && 456 = 456
+0 && 456 = 0 
+假 && ssjsn&&sdfs = 假
+
+num = 0     123|| num++    num=0  
+
+switch(表达式){
+   case value:
+       break;
+	....
+   default:
+   ;
+}
+
+
+数组：
+   var 变量 = new Array();   //创建空数组
+   var 变量 = []; // *****//
+   数组变量.length = 数  //可以修改数组长度
+   数组变量[追加位号] = 数  //增加数组长度
+首添加： 变量.unshift(值)
+尾添加： 变量.push(值)
+
+首删除： 变量.shift()
+尾删除： 变量.pop()
+
+
+
+indexOf:可用于数组去重，若数组中没有找到元素会返回-1，利用此点可以去重。
+变量.indexOf('要查找的字符',[起始的位置])
+
+
+ 
+
+函数：
+    function 函数名（形参）{
+	函数体
+}
+   调用：函数名（实参）；
+   
+   return 返回最后一个值。
+   arguments   //只有函数里使用，里面存储了所有传递过来的实参，是伪数组。（有length属性、有索引、没有真正数组的一些方法（pop（）、push（）））
+var 变量名 = function(){}  -------------  匿名函数   变量名（）;
+
+
+全局作用域（整个script标签）       局部作用域-----函数作用域（函数内部起作用）
+不同作用域变量名不影响 
+没有使用var 定义的变量在函数中 当被调用函数之后属于全局变量
+全局变量在浏览器关闭才会销毁，比较占资源。
+*******块级作用域*******
+作用域链:内部函数可以调用外部函数的变量，链式查找来觉得取哪个值。（就近原则 ） 0级链 1级链 ... 
+
+预解析：
+    变量提升：把所有的变量声明提升到当前的作用域最前面，不提升赋值操作   （var 变量名     提升）
+	函数提升：把所有的函数申明提升到最前面，不调用函数
+例子：
+var num = 10;
+  fun(); 
+  function fun(){
+    console.log(num);
+    var num = 20;
+  }
+  
+相当于：
+var num;
+function fun(){
+    var num;
+    console.log(num);
+    num = 20;
+} 
+num = 10;
+fun();
+输出结果是:undefined
+
+var a = b = c; ==>var a = 9, b = 9, c = 9;  没有var 当全局变量。
+例子：
+f1();
+console.log(c);
+console.log(b);
+console.log(a);
+function f1(){
+    var a = b = c = 9;      //var a;       a = b = c = 9;  (b,c是全局变量)
+	console.log(a);
+	condsole.log(b);
+	console.log(c);
+}
+输出结果是：9 9 9 9 9 报错
+
+
+
+对象是一个具体的事物。对象的属性和方法
+创建对象:1.字面量      var obj={   :   ,   :function()}
+         对象名.属性名  or 对象名['属性名']
+		 对象名.函数名（）；
+        2. var 对象名 = new Object();
+		    对象名.属性 = 属性值； 
+		    对象名.方法名 = function(){  }
+			
+			
+因为创建一个对象，里面的很多属性和方法是大量相同的，我们只能复制。 因此可以利用函数方法来重复这些相同的代码。这个函数称为构造函数。
+构造函数就是把我们对象里面一些相同的属性和方法抽象出来封装到函数里面。 
+function 构造函数名(){
+   this.属性 = 值;
+   this.方法 = function（）{}
+}
+new 构造函数名();
+
+构造函数首字母大写。
+构造函数不需要return就能返回值。返回的是一个对象。
+调用构造函数必须使用new。
+只要new调用了构造函数就创建了一个对象。
+构造函数的属性和方法前面必须添加this。
+
+构造函数即是一些对象的共同特点的集合。
+
+1.new 构造函数可以在内存中创建一个空的对象
+2.this 就会指向刚才创建的空的对象
+3.执行构造函数里面的代码，给这个空对象添加属性和方法。  
+4.构造函数返回一个对象。
+
+
+遍历对象：
+   for (var 变量 in 对象){
+   出来的变量是属性；    
+   对象[变量] = 是属性值;
+       }
+
+
+
+
+内置对象-------MDN   https://developer.mozilla.org/zh-CN   查文档
+
+
+
+ function getRandom(num1, num2){
+    var max = Math.floor(num2);
+    var min = Math.ceil(num1);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+   }
+
+
+Date()日期对象，是一构造函数，必须使用new来调用创建日期对象
+
+
+
+//计数器
+function add_zero(num){
+      num = num < 10 ? '0' + num : num;
+      return num;
+    }
+    function countdown(time){
+      var nowtime = +new Date();
+      var inputtime = +new Date(time);
+      var times = (inputtime - nowtime) / 1000;
+      var miao = add_zero(parseInt(times % 60));
+      var fen = add_zero(parseInt(times / 60 % 60));
+      var shi = add_zero(parseInt(times / 60 / 60 % 24));
+      var tian = add_zero(parseInt(times / 60 / 60 / 24));
+      return `${tian}天${shi}时${fen}分${miao}秒`;
+    }
+    countdown("2022-9-28 17:00:00");
+
+
+
+
+//切片后缀名
+var b = "123.qwe.31.jpg"
+console.log(b.slice(b.lastIndexOf('.')));
+
+
+
+字符串不可变，只是地址变了。因为字符串的不可变所有不要大量的拼接字符串。
+str = ’a'      
+str = 'b'
+看上去只是一个字符串实际上开辟了两个内存空间。
+
+
+null是一个空对象，如果打算存储对象，暂时没想好放啥，这个时候可以给null。
+
+
+简单数据类型放栈里面  ：string、number、boolean、undefined、null   栈里面直接开辟一个空间存放的是值
+复杂数据类型放堆里面  ：有使用new创建的                            首先在栈里面存放地址，十六进制表示，然后这个地址指向堆里面的数据
+

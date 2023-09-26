@@ -1,0 +1,148 @@
+vue 小程序
+1组件：基础组件和自定义组件
+2API：网络请求等
+3路由：类似小程序的页面切换
+4生命周期：页面隐藏，页面显示等
+5语法：数据绑定，事件等
+6布局样式：样式引用，saas等
+
+
+pages 页面存放目录
+static 静态文件资源目录
+App.vue 应用入口文件 和小程序app.js类似
+main.js 应用入口文件 注册Vue等
+manifest.json 项目配置
+pages.json 页面配置
+common 存放公用文件
+components 存放自定义组件
+store vuex目录
+unpackage 编译后的文件存放目录
+
+v-bind：组件属性要使用data中的数据变量或表达式时  简写：
+v-on:  绑定事件 简写@   @click.stop:阻止了子级向父级传递，防止事件穿透。
+v-model: 双向绑定
+
+v-if： v-else: 条件判断，决定某个内容是否显示  条件不成立不显示 是否显示
+v-show:   决定组件是否挂载  *****
+
+
+
+与data同级
+props:{
+   color：{
+       type:String,
+	   default:'blue'
+   }
+
+}  自定义组件接收对象
+
+
+
+props:{
+			item:{
+				type:Object,
+				default(){
+					return{}
+				}
+			}
+		},
+
+
+调用组件
+ <goods-card :item="item"></goods-card>    //:item是因为要调用data中数据
+
+
+
+使用easycom规范（在components目录下创建组件目录，组件名同组件目录名），可以直接使用组件。
+父组件向子组件传递数据：props
+子组件向父组件传递数据可以通过自定义事件，父组件自定义事件，子组件触发父组件定义的事件并传递数据。
+子组件可以定义插槽slot，让父组件自定义要显示的内容。
+
+
+
+生命周期：  
+     1.应用的生命周期
+	 2.页面的生命周期
+	    1)onLoad  页面加载时触发
+		2)onReady 页面初次渲染时触发
+		3)onShow 页面显示时触发
+		4)onHide 页面隐藏时触发
+		5)onUnload 页面卸载时触发
+	 3.组件的生命周期
+	    1)beforeCreate 实例初始化之后
+		2)created 实例创建完后立刻被调用
+		3)mounted 实例挂载完后被调用
+		4)destroyed 实例销毁后被调用
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+Vue.prototype.$u.http.setConfig({
+		baseUrl: '', // 请求的本域名
+			//method: 'POST',
+			// 设置为json，返回后会对数据进行一次JSON.parse()
+			dataType: 'json',
+			showLoading: true, // 是否显示请求中的loading
+			loadingText: '请求中...', // 请求loading中的文字提示
+			loadingTime: 800, // 在此时间内，请求还没回来的话，就显示加载中动画，单位ms
+			originalData: true, // 是否在拦截器中返回服务端的原始数据                    ——————————————————原始包括状态码等数据
+			loadingMask: true, // 展示loading的时候，是否给一个透明的蒙层，防止触摸穿透
+			// 配置请求头信息
+			header: {
+				'content-type': 'application/json;charset=UTF-8'
+			},
+		// ......
+	})
+	
+const {statusCode} = res；   //从res中解构出statusCode
+
+异步函数： async       await   await即等待，用于等待一个Promise对象。它只能在异步函数 async function中使用，否则会报错它的返回值不是Promise对象而是Promise对象处理之后的结果
+
+
+
+
+async onLoad() {
+        const res = await this.$u.get('/api/index')
+		},
+		
+		
+		
+		
+		
+//增加patch请求
+	vm.$u.patch = (url,params = {}, header = {}) =>{
+		//模拟patch请求
+		const _params = {
+			...params,
+			_method:'PATCH'
+		}
+		return vm.$u.post(url,_params,header);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+css样式：
+padding：内边距 	
