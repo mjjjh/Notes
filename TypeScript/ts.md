@@ -2241,3 +2241,34 @@ type reserve<T extends any[]> = T extends [infer first, ...infer rest] ? [...res
 type Arrb = reserve<Arr>
 ```
 
+
+
+
+### declare
+```ts
+//Type.d.ts文件
+export declare interface sss {
+    one:number
+}
+
+
+//使用文件
+//可以直接导入这个interface
+import type {sss} from './Type'
+```
+
+```ts
+//模块化
+//Type.d.ts文件
+declare module "aaa" {
+	interface sss{
+		one:number
+	}	
+}
+
+
+//使用文件
+//可以直接导入这个interface
+import type {sss} from 'aaa'
+```
+
